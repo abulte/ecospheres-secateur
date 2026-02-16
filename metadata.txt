@@ -1,0 +1,16 @@
+[general]
+name=Ecosphères Secateur
+qgisMinimumVersion=3.28
+description=Intersecte les couches WFS du projet avec le contour d'une commune et extrait les entités concernées.
+version=0.1.0
+author=Ecosphères
+email=contact@example.com
+about=Outil d'intersection spatiale : sélectionnez une commune, le plugin interroge automatiquement toutes les couches WFS visibles du projet et affiche les entités intersectantes.
+tracker=https://github.com/abulte/ecospheres-secateur/issues
+repository=https://github.com/abulte/ecospheres-secateur
+tags=wfs,intersection,commune,analyse spatiale
+homepage=https://github.com/abulte/ecospheres-secateur
+category=Analysis
+icon=resources/icon.png
+experimental=True
+deprecated=False
