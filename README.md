@@ -41,9 +41,7 @@ Puis dans QGIS : **Extensions > Gérer/Installer > chercher "Ecosphères Sécate
 git clone <repo> && cd qgis-plugins
 ln -s "$(pwd)/ecospheres-secateur" ~/Library/Application\ Support/QGIS/QGIS3/profiles/default/python/plugins/
 
-# Recharger après modif : plugin Plugin Reloader ou console Python QGIS
-import importlib
-importlib.reload(ecospheres-secateur)
+# Recharger après modif : installer le plugin "Plugin Reloader" et cibler ecospheres-secateur
 ```
 
 ### Structure
