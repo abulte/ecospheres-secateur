@@ -48,7 +48,7 @@ ln -s "$(pwd)/ecospheres-secateur" ~/Library/Application\ Support/QGIS/QGIS3/pro
 
 ### Qualité du code
 
-Le projet utilise [ruff](https://docs.astral.sh/ruff/) (lint + format) et [pyright](https://github.com/microsoft/pyright) (type checking), exécutés automatiquement via [pre-commit](https://pre-commit.com/).
+Le projet utilise [ruff](https://docs.astral.sh/ruff/) (lint + format) et [pyright](https://github.com/microsoft/pyright) (type checking), exécutés automatiquement via [pre-commit](https://pre-commit.com/). Prérequis : [uv](https://docs.astral.sh/uv/#installation).
 
 ```bash
 # Installer les dépendances de dev et activer les hooks pre-commit
