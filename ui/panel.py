@@ -98,6 +98,8 @@ class SecateurPanel(QDockWidget):
             self._completer_model.setStringList([])
 
     def _do_search(self):
+        if self._selected_code:
+            return
         text = self.search_input.text().strip()
         if len(text) < 2:
             return
