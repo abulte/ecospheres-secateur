@@ -1,4 +1,6 @@
 from qgis.core import (
+    QgsCoordinateReferenceSystem,
+    QgsCoordinateTransform,
     QgsFeature,
     QgsFeatureRequest,
     QgsGeometry,
@@ -45,10 +47,20 @@ def intersect_commune(
     progress_callback=None,
 ) -> list[QgsVectorLayer]:
     """Intersect commune geometry against each layer. Returns memory layers with matching features."""
+    commune_crs = QgsCoordinateReferenceSystem("EPSG:4326")
     results = []
     for i, layer in enumerate(layers):
         if progress_callback:
             progress_callback(i, len(layers), layer.name())
+
+        # Reproject commune geometry to layer CRS
+        layer_crs = layer.crs()
+        if layer_crs != commune_crs:
+            transform = QgsCoordinateTransform(commune_crs, layer_crs, QgsProject.instance())
+            local_geom = QgsGeometry(commune_geom)
+            local_geom.transform(transform)
+        else:
+            local_geom = commune_geom
 
         geom_type_str = QgsWkbTypes.displayString(layer.wkbType())
         mem_layer = QgsVectorLayer(
@@ -60,10 +72,10 @@ def intersect_commune(
         mem_provider.addAttributes(layer.fields().toList())
         mem_layer.updateFields()
 
-        request = QgsFeatureRequest().setFilterRect(commune_geom.boundingBox())
+        request = QgsFeatureRequest().setFilterRect(local_geom.boundingBox())
         matching = []
         for feat in layer.getFeatures(request):
-            if feat.hasGeometry() and commune_geom.intersects(feat.geometry()):
+            if feat.hasGeometry() and local_geom.intersects(feat.geometry()):
                 new_feat = QgsFeature(mem_layer.fields())
                 new_feat.setGeometry(feat.geometry())
                 new_feat.setAttributes(feat.attributes())
