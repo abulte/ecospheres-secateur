@@ -3,6 +3,7 @@ import os
 import re
 
 from qgis.core import (
+    QgsCoordinateReferenceSystem,
     QgsGeometry,
     QgsLayout,
     QgsLayoutExporter,
@@ -102,6 +103,7 @@ def _make_page_layout(
     # Set map extent and layers
     map_item = layout.itemById("map")
     if map_item and isinstance(map_item, QgsLayoutItemMap):
+        map_item.setCrs(QgsCoordinateReferenceSystem("EPSG:4326"))
         map_item.zoomToExtent(extent)
         map_item.setLayers(visible_layers)
         map_item.setKeepLayerSet(True)
